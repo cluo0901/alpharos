@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "295001772792-9nquqrm08u4vl7er5dibq1a2o3cj0ecm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.alpharos",
+            "certificate_hash": "6e5d4624e763b88ce251fb1cbc70d404ac45933d"
+          }
+        },
+        {
           "client_id": "295001772792-03bgvbs1icb2kkgb9dkj306modlcgjak.apps.googleusercontent.com",
           "client_type": 3
         }

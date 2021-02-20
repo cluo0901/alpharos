@@ -1,8 +1,10 @@
 import 'package:alpharos/models/app_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final googleSignIn = GoogleSignIn();
 
   //  create user obj based on firebaseuser
 
@@ -61,9 +63,32 @@ class AuthService {
 
   Future signOut() async {
     try {
+      // await googleSignIn.disconnect();
       return await _auth.signOut();
     } catch (e) {
       return null;
+    }
+  }
+
+  // google sign in
+  Future signInWithGoogle() async {
+    GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+
+    if (googleSignInAccount != null) {
+      GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+
+      AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      UserCredential result = await _auth.signInWithCredential(credential);
+
+      // User user = await _auth.currentUser();
+      User user = result.user;
+      print(user.uid);
+      return _userFromFireBaseUser(user);
     }
   }
 }

@@ -1,6 +1,10 @@
+import 'package:alpharos/services/auth_service.dart';
+// import 'package:alpharos/services/google_sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Welcome extends StatelessWidget {
+  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +22,7 @@ class Welcome extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 200.0,
+              height: 150.0,
             ),
             Text(
               'See what other smart investors are trading.',
@@ -47,22 +51,94 @@ class Welcome extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(
+              height: 10.0,
+            ),
+
+            // Expanded(
+            //   child: Align(
+            //     alignment: Alignment.bottomCenter,
+            //     child: Row(
+            //       children: [
+            //         Text('Have an account already?'),
+            //         TextButton(
+            //           onPressed: () {
+            //             Navigator.pushNamed(context, '/login');
+            //           },
+            //           child: Text('Log in'),
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            // ),
+
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(child: Text('Have an account already?')),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/login');
+                    },
+                    child: Text('Log in'),
+                  )
+                ],
+              ),
+            ),
+
+            //google sign in
             Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Row(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 30.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('Have an account already?'),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/login');
+                    Row(
+                      children: [
+                        Expanded(
+                            child: Divider(
+                          indent: 25.0,
+                          color: Colors.grey[700],
+                        )),
+                        SizedBox(width: 15.0),
+                        Text(
+                          'Sign in with',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                          ),
+                        ),
+                        SizedBox(width: 15.0),
+                        Expanded(
+                            child: Divider(
+                          endIndent: 25.0,
+                          color: Colors.grey[700],
+                        )),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15.0,
+                    ),
+                    IconButton(
+                      onPressed: () async {
+                        dynamic result = await _auth.signInWithGoogle();
+                        if (result == null) {
+                          print('google sign in failed');
+                          // setState(() {
+                          //   error = 'Please enter correct username and password.';
+                          // });
+                        }
                       },
-                      child: Text('Log in'),
-                    )
+                      icon: Image.asset(
+                        'assets/images/google_logo.png',
+                        height: 40.0,
+                        width: 40.0,
+                      ),
+                    ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

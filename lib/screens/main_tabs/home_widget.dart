@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 final List<String> imgList = [
   "https://ak6.picdn.net/shutterstock/videos/6982306/thumb/1.jpg",
