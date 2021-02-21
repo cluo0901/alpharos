@@ -17,12 +17,12 @@ Widget drawer(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/profile');
-                      },
-                      icon: Icon(Icons.person),
-                    ),
+                    // IconButton(
+                    //   onPressed: () {
+                    //     Navigator.pushNamed(context, '/profile');
+                    //   },
+                    //   icon: Icon(Icons.person),
+                    // ),
                     SizedBox(height: 10.0),
                     Text('Username'),
                     SizedBox(height: 5.0),

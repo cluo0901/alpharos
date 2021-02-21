@@ -85,7 +85,7 @@ class _HomeWidgetState extends State<HomeWidget> {
         ),
         const Divider(
           color: Colors.grey,
-          height: 20,
+          height: 0,
           thickness: 1,
           indent: 0,
           endIndent: 0,
@@ -163,14 +163,6 @@ class _HomeWidgetState extends State<HomeWidget> {
               );
             } else {
               return CircularProgressIndicator();
-              // return SpinKitFadingCircle(
-              //     itemBuilder: (BuildContext context, int index) {
-              //   return DecoratedBox(
-              //     decoration: BoxDecoration(
-              //       color: Colors.blue,
-              //     ),
-              //   );
-              // });
             }
           },
         ),

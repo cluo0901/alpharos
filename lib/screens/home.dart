@@ -65,6 +65,7 @@ class _HomeState extends State<Home> {
     AppBar(
       title: Text('Profile'),
       centerTitle: true,
+      elevation: 0.0,
       actions: [
         IconButton(icon: Icon(Icons.settings), onPressed: () {}),
       ],

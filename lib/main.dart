@@ -1,4 +1,5 @@
 import 'package:alpharos/models/app_user.dart';
+import 'package:alpharos/screens/profile/edit_profile.dart';
 import 'package:alpharos/screens/search.dart';
 import 'package:alpharos/screens/notifications/notification_settings.dart';
 import 'package:alpharos/screens/wrapper.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
             '/search': (context) => Search(),
             '/post': (context) => Post(),
             '/notification_settings': (context) => NotificationSettings(),
+            '/edit_profile': (context) => EditProfile(),
           }),
     );
   }
