@@ -30,43 +30,63 @@ class _HomeWidgetState extends State<HomeWidget> {
       .toList();
 
   final ref = FirebaseFirestore.instance.collection('posts');
+  ScrollController controller = ScrollController();
+  bool closeTopContainer = false;
+
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(() {
+      setState(() {
+        closeTopContainer = controller.offset > 50;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    final double bannerHeight = size.height * 0.30;
     return Column(
       children: [
-        Column(children: [
-          // Caoursel banner
-          CarouselSlider(
-            items: imageSliders,
-            options: CarouselOptions(
-                autoPlay: true,
-                enlargeCenterPage: true,
-                aspectRatio: 2.0,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _current = index;
-                  });
-                }),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: imgList.map((url) {
-              int index = imgList.indexOf(url);
-              return Container(
-                width: 8.0,
-                height: 8.0,
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _current == index
-                      ? Color.fromRGBO(0, 0, 0, 0.9)
-                      : Color.fromRGBO(0, 0, 0, 0.4),
-                ),
-              );
-            }).toList(),
-          ),
-        ]),
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          width: size.width,
+          alignment: Alignment.topCenter,
+          height: closeTopContainer ? 0 : bannerHeight,
+          child: Column(children: [
+            // Caoursel banner
+            CarouselSlider(
+              items: imageSliders,
+              options: CarouselOptions(
+                  autoPlay: true,
+                  enlargeCenterPage: true,
+                  aspectRatio: 2.0,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _current = index;
+                    });
+                  }),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: imgList.map((url) {
+                int index = imgList.indexOf(url);
+                return Container(
+                  width: 8.0,
+                  height: 8.0,
+                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _current == index
+                        ? Color.fromRGBO(0, 0, 0, 0.9)
+                        : Color.fromRGBO(0, 0, 0, 0.4),
+                  ),
+                );
+              }).toList(),
+            ),
+          ]),
+        ),
         // Following user icons -> go to profiles
         Container(
           margin: EdgeInsets.symmetric(vertical: 20.0),
@@ -98,6 +118,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             if (snapshot.hasData) {
               return Expanded(
                 child: ListView(
+                  controller: controller,
                   children: snapshot.data.docs.map((DocumentSnapshot document) {
                     return GestureDetector(
                       onTap: () {
