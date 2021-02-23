@@ -1,7 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
+  final String displayUserUid;
+
+  Profile({this.displayUserUid});
+
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -27,6 +32,10 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    final User user = _auth.currentUser;
+    final uid = user.uid;
+
     return NestedScrollView(
       controller: _scrollController,
       headerSliverBuilder: (BuildContext context, bool boxIsScrolled) {
@@ -82,7 +91,10 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                       Navigator.pushNamed(context, '/edit_profile');
                     },
                     child: Text(
-                      'Edit profile',
+                      (uid == widget.displayUserUid ||
+                              widget.displayUserUid == 'user')
+                          ? 'Edit profile'
+                          : 'Follow',
                       style: TextStyle(
                         color: Colors.blue,
                       ),

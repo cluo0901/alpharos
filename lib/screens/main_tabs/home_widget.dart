@@ -1,3 +1,4 @@
+import 'package:alpharos/screens/user_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -132,7 +133,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                         children: [
                           ListTile(
                             leading: MaterialButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => UserProfile(
+                                            displayUserUid:
+                                                'BvmKq4w61DTjy6CTyBh1GREujy22')));
+                                // Navigator.pushNamed(context, '/user_profile');
+                              },
                               color: Colors.blue,
                               child: Icon(
                                   Icons.person), //avatar of the followed user

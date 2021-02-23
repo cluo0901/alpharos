@@ -63,7 +63,7 @@ class _HomeState extends State<Home> {
       ],
     ),
     AppBar(
-      title: Text('Profile'),
+      title: Text('My Profile'),
       centerTitle: true,
       elevation: 0.0,
       actions: [
@@ -76,7 +76,7 @@ class _HomeState extends State<Home> {
     HomeWidget(),
     Discover(),
     Notifications(),
-    Profile(),
+    Profile(displayUserUid: 'user'),
   ];
 
   @override
